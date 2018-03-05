@@ -83,54 +83,6 @@ class RenderedVega2 extends Widget implements IRenderMime.IRenderer {
     let mimeType = this._mimeType = options.mimeType;
     if (mimeType === VEGA_MIME_TYPE) {
       this.addClass(VEGA_CLASS);
-<<<<<<< Updated upstream
-      this._mode = 'vega';
-    } else {
-      this.addClass(VEGALITE_CLASS);
-      this._mode = 'vega-lite';
-    }
-  }
-
-  /**
-   * Render Vega/Vega-Lite into this widget's node.
-   */
-  renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-
-    let data = model.data[this._mimeType] as ReadonlyJSONObject;
-    let updatedData: JSONObject;
-    if (this._mode === 'vega-lite') {
-      updatedData = Private.updateVegaLiteDefaults(data);
-    } else {
-      updatedData = data as JSONObject;
-    }
-
-    let embedSpec = {
-      mode: this._mode,
-      spec: updatedData
-    };
-
-    return Private.ensureMod().then(embedFunc => {
-      return new Promise<void>((resolve, reject) => {
-        embedFunc(this.node, embedSpec, (error: any, result: any): any => {
-          if (error) {
-            return reject(error);
-          }
-
-          // Save png data in MIME bundle along with original MIME data.
-          if (!model.data['image/png']) {
-            let imageData = result.view.toImageURL().split(',')[1] as JSONValue;
-            let newData = {...(model.data), 'image/png': imageData};
-            model.setData({ data: newData });
-          }
-          resolve(undefined);
-        });
-      });
-    });
-  }
-
-  private _mimeType: string;
-  private _mode: string;
-=======
     } else {
       this.addClass(VEGALITE_CLASS);
     }
@@ -188,7 +140,6 @@ class RenderedVega2 extends Widget implements IRenderMime.IRenderer {
   }
 
   private _mimeType: string;
->>>>>>> Stashed changes
 }
 
 
