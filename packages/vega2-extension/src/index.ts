@@ -4,11 +4,7 @@
 |----------------------------------------------------------------------------*/
 
 import {
-<<<<<<< Updated upstream
-  JSONObject, JSONValue, ReadonlyJSONObject
-=======
   JSONObject
->>>>>>> Stashed changes
 } from '@phosphor/coreutils';
 
 import {
@@ -23,12 +19,7 @@ import {
  * Import vega-embed in this manner due to how it is exported.
  */
 // Import only the typings for vega-embed-v2 - do not use for values.
-<<<<<<< Updated upstream
-import embed = require('vega-embed-v2');
-
-=======
 import vegaEmbed, {Mode} from 'vega-embed';
->>>>>>> Stashed changes
 
 import '../style/index.css';
 
@@ -189,72 +180,6 @@ const extension: IRenderMime.IExtension = {
 export default extension;
 
 
-<<<<<<< Updated upstream
-/**
- * Namespace for module privates.
- */
-namespace Private {
-
-  /**
-   * Default cell config for Vega-Lite.
-   */
-  const defaultCellConfig: JSONObject = {
-    'width': 400,
-    'height': 400 / 1.5
-  };
-
-  /**
-   * The embed module import.
-   */
-  let mod: typeof embed;
-
-  /**
-   * Initialize the vega-embed module.
-   */
-  export
-  function ensureMod(): Promise<typeof embed> {
-    return new Promise((resolve, reject) => {
-      if (mod !== undefined) {
-        resolve(mod);
-        return;
-      }
-      (require as any).ensure(['vega-embed-v2'], (require: NodeRequire) => {
-        mod = require('vega-embed-v2');
-        resolve(mod);
-      },
-      (err: any) => {
-        reject(err);
-      },
-      'vega2'
-      );
-    });
-  }
-
-  /**
-   * Apply the default cell config to the spec in place.
-   *
-   * #### Notes
-   * This carefully does a shallow copy to avoid copying the potentially
-   * large data.
-   */
-  export
-  function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
-    let config = spec.config as JSONObject;
-    if (!config) {
-      return {...{'config': {'cell': defaultCellConfig}}, ...spec};
-    }
-    let cell = config.cell as JSONObject;
-    if (cell) {
-      return {
-        ...{'config': {...{'cell': {...defaultCellConfig, ...cell}}}, ...config},
-        ...spec
-      };
-    } else {
-      return {...{'config': {...{'cell': {...defaultCellConfig}}}, ...config}, ...spec};
-    }
-  }
-}
-=======
 // /**
 //  * Namespace for module privates.
 //  */
@@ -319,4 +244,3 @@ namespace Private {
 //     }
 //   }
 // }
->>>>>>> Stashed changes
